@@ -1,0 +1,152 @@
+[
+
+    {
+      'eventid': 197806240004,
+      'year': 1978,
+      'month': 6,
+      'day': 24,
+      'city': 'Schaumburg',
+      'attack_type': 'Bombing/Explosion',
+      'target_type': 'Business',
+      'groups': [
+        'Fuerzas Armadas de Liberacion Nacional (FALN)',
+        nan
+      ]
+    }
+  ,
+
+    {
+      'eventid': 197806250001,
+      'year': 1978,
+      'month': 6,
+      'day': 25,
+      'city': 'Paris',
+      'attack_type': 'Bombing/Explosion',
+      'target_type': 'Business',
+      'groups': [
+        'Unknown',
+        nan
+      ]
+    }
+  ,
+  [
+    {
+      'eventid': 197806250002,
+      'year': 1978,
+      'month': 6,
+      'day': 25,
+      'city': 'Paris',
+      'attack_type': 'Unknown',
+      'target_type': 'Business',
+      'groups': [
+        'Unknown',
+        nan
+      ]
+    }
+  ],
+  [
+    {
+      'eventid': 197806250003,
+      'year': 1978,
+      'month': 6,
+      'day': 25,
+      'city': 'Crossmaglen',
+      'attack_type': 'Armed Assault',
+      'target_type': 'Private Citizens & Property',
+      'groups': [
+        'Irish Republican Army (IRA)',
+        nan
+      ]
+    }
+  ],
+  [
+    {
+      'eventid': 197806250004,
+      'year': 1978,
+      'month': 6,
+      'day': 25,
+      'city': 'Belcoo',
+      'attack_type': 'Bombing/Explosion',
+      'target_type': 'Military',
+      'groups': [
+        'Irish Republican Army (IRA)',
+        nan
+      ]
+    }
+  ],
+  [
+    {
+      'eventid': 197806250005,
+      'year': 1978,
+      'month': 6,
+      'day': 25,
+      'city': 'Unknown',
+      'attack_type': 'Assassination',
+      'target_type': 'Police',
+      'groups': [
+        'African National Congress (South Africa)',
+        nan
+      ]
+    }
+  ],
+  [
+    {
+      'eventid': 197806260001,
+      'year': 1978,
+      'month': 6,
+      'day': 26,
+      'city': 'Versailles',
+      'attack_type': 'Bombing/Explosion',
+      'target_type': 'Private Citizens & Property',
+      'groups': [
+        'Breton Liberation Front (FLB)',
+        nan
+      ]
+    }
+  ],
+  [
+    {
+      'eventid': 197806260002,
+      'year': 1978,
+      'month': 6,
+      'day': 26,
+      'city': 'Paris',
+      'attack_type': 'Bombing/Explosion',
+      'target_type': 'Business',
+      'groups': [
+        'Unknown',
+        nan
+      ]
+    }
+  ],
+  [
+    {
+      'eventid': 197806270001,
+      'year': 1978,
+      'month': 6,
+      'day': 27,
+      'city': 'Unknown',
+      'attack_type': 'Assassination',
+      'target_type': 'Religious Figures/Institutions',
+      'groups': [
+        "Zimbabwe African People's Union",
+        nan
+      ]
+    }
+  ],
+  [
+    {
+      'eventid': 197806270002,
+      'year': 1978,
+      'month': 6,
+      'day': 27,
+      'city': 'Paris',
+      'attack_type': 'Bombing/Explosion',
+      'target_type': 'Business',
+      'groups': [
+        'Unknown',
+        nan
+      ]
+    }
+  ]
+]

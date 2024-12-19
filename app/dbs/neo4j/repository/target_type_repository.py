@@ -5,13 +5,15 @@ from returns.maybe import Maybe
 from app.settings.config_dbs import driver
 
 def insert_many_target(targets:Set[str]):
+    if targets is None:
+        return
     with driver.session() as session:
         try:
             query="""
             UNWIND $targets AS target
-            CREATE (u:TargetType {type: target})
+            MERGE (u:TargetType {type: target})
             """
-            parm = {"targets":targets}
+            parm = {"targets":list(targets)}
             session.run(query,parm)
         except Exception as e:
             print(e)

@@ -1,12 +1,14 @@
 from threading import Thread
 
+from dotenv import load_dotenv
+
 from app.dbs.neo4j.repository.attack_type_repository import insert_many_attack_types
 from app.dbs.neo4j.repository.event_repository import insert_many_events
 from app.dbs.neo4j.repository.groups_repository import insert_many_groups
 from app.dbs.neo4j.repository.location_repository import  insert_many_location
 from app.dbs.neo4j.repository.target_type_repository import insert_many_target
 from app.settings.config_kafka import consume_and_save
-
+load_dotenv(verbose=True)
 
 def run_all_consumers_neo4j_parallel():
     consumers = [
