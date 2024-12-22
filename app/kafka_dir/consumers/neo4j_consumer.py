@@ -1,7 +1,5 @@
 from threading import Thread
-
 from dotenv import load_dotenv
-
 from app.dbs.neo4j.repository.attack_type_repository import insert_many_attack_types
 from app.dbs.neo4j.repository.event_repository import insert_many_events
 from app.dbs.neo4j.repository.groups_repository import insert_many_groups
