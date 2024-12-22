@@ -6,16 +6,7 @@ from app.settings.config_dbs import driver
 
 
 def insert_many_groups(groups: Set[List[str]]):
-    if groups is None:
-        return
-    import math
-    groups = {
-        item
-        for group in groups
-        if group
-        for item in group
-        if item and item not in ["nan", "NaN", "Unknown"] and not (isinstance(item, float) and math.isnan(item))
-    }
+    groups = set(groups)
 
     with driver.session() as session:
         try:

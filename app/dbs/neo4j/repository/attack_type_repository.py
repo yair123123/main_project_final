@@ -20,6 +20,8 @@ def insert_many_attack_types(attack_types: List[str]):
 
 
 def insert_attack_type(attack_type: str):
+    if attack_type is None:
+        return
     with driver.session() as session:
         query = """
         merge (a:AttackedType {type:$type})
