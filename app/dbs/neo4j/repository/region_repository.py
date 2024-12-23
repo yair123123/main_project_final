@@ -4,13 +4,14 @@ from returns.maybe import Maybe
 
 from app.settings.config_dbs import driver
 def insert_many_regions(regions:Set[str]):
+    regions = set(regions)
     with driver.session() as session:
         try:
             query="""
             UNWIND $regions AS region
-            CREATE (u:Regions {name: region})
+            MERGE (u:Regions {name: region})
             """
-            parm = {"regions":regions}
+            parm = {"regions":list(regions)}
             session.run(query,parm)
         except Exception as e:
             print(e)

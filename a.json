@@ -1,0 +1,162 @@
+[
+  {
+    'eventid': 197104290003,
+    'location': {
+      'country': 'United States',
+      'city': 'Los Angeles',
+      'region': 'North America',
+      'latitude': 34.097866,
+      'longitude': -118.407379
+    },
+    'groups': [
+      None,
+      None
+    ],
+    'attack_type': 'Bombing/Explosion',
+    'target_type': 'Business'
+  },
+  {
+    'eventid': 197104290004,
+    'location': {
+      'country': 'United States',
+      'city': 'Los Gatos',
+      'region': 'North America',
+      'latitude': 37.235807,
+      'longitude': -121.962416
+    },
+    'groups': [
+      None,
+      None
+    ],
+    'attack_type': 'Facility/Infrastructure Attack',
+    'target_type': 'Business'
+  },
+  {
+    'eventid': 197104290005,
+    'location': {
+      'country': 'United States',
+      'city': 'Berkeley',
+      'region': 'North America',
+      'latitude': 37.874043,
+      'longitude': -122.280022
+    },
+    'groups': [
+      None,
+      None
+    ],
+    'attack_type': 'Assassination',
+    'target_type': 'Military'
+  },
+  {
+    'eventid': 197104300001,
+    'location': {
+      'country': 'United States',
+      'city': 'San Jose',
+      'region': 'North America',
+      'latitude': 37.338475,
+      'longitude': -121.885794
+    },
+    'groups': [
+      None,
+      None
+    ],
+    'attack_type': 'Facility/Infrastructure Attack',
+    'target_type': 'Military'
+  },
+  {
+    'eventid': 197104300002,
+    'location': {
+      'country': 'United States',
+      'city': 'Braintree',
+      'region': 'North America',
+      'latitude': 42.206391,
+      'longitude': -71.004817
+    },
+    'groups': [
+      None,
+      None
+    ],
+    'attack_type': 'Bombing/Explosion',
+    'target_type': 'Government (General)'
+  },
+  {
+    'eventid': 197105010001,
+    'location': {
+      'country': 'United States',
+      'city': 'Santa Cruz',
+      'region': 'North America',
+      'latitude': 36.974025,
+      'longitude': -122.030954
+    },
+    'groups': [
+      None,
+      None
+    ],
+    'attack_type': 'Bombing/Explosion',
+    'target_type': 'Business'
+  },
+  {
+    'eventid': 197105020001,
+    'location': {
+      'country': 'Spain',
+      'city': 'Pamplona',
+      'region': 'Western Europe',
+      'latitude': 42.815372,
+      'longitude': -1.653616
+    },
+    'groups': [
+      None,
+      None
+    ],
+    'attack_type': 'Bombing/Explosion',
+    'target_type': 'Journalists & Media'
+  },
+  {
+    'eventid': 197105040001,
+    'location': {
+      'country': 'Bolivia',
+      'city': 'La Paz',
+      'region': 'South America',
+      'latitude': -16.509317,
+      'longitude': -68.10434
+    },
+    'groups': [
+      None,
+      None
+    ],
+    'attack_type': 'Hostage Taking (Kidnapping)',
+    'target_type': 'Business'
+  },
+  {
+    'eventid': 197105040002,
+    'location': {
+      'country': 'Turkey',
+      'city': 'Ankara',
+      'region': 'Middle East & North Africa',
+      'latitude': 39.930771,
+      'longitude': 32.76754
+    },
+    'groups': [
+      None,
+      None
+    ],
+    'attack_type': 'Bombing/Explosion',
+    'target_type': 'Military'
+  },
+  {
+    'eventid': 197105040003,
+    'location': {
+      'country': 'United States',
+      'city': 'Chico',
+      'region': 'North America',
+      'latitude': 39.728352,
+      'longitude': -121.841985
+    },
+    'groups': [
+      None,
+      None
+    ],
+    'attack_type': 'Facility/Infrastructure Attack',
+    'target_type': 'Military'
+  }
+]
