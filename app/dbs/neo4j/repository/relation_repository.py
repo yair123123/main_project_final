@@ -89,6 +89,7 @@ def shared_attack_type_in_groups_by_region():
         """
         res =  Maybe.from_optional(session.run(query).data()).value_or([])
         print(res)
+
 def shared_attack_type_in_groups_by_country():
     with driver.session() as session:
         query = """
@@ -98,4 +99,4 @@ def shared_attack_type_in_groups_by_country():
         """
         res =  Maybe.from_optional(session.run(query).data()).value_or([])
         print(res)
-shared_attack_type_in_groups_by_country()
+
