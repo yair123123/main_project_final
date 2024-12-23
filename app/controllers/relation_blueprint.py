@@ -39,17 +39,17 @@ def get_both_groups_in_event_by_location(country:str):
     except Exception as e:
         return jsonify({"message":str(e)}),500
 
-@relation_blueprint.route('/shared_goals_in_groups_by_year/')
-def get_shared_goals_in_groups_by_year():
+@relation_blueprint.route('/shared_goals_in_groups_by_year/<string:year>')
+def get_shared_goals_in_groups_by_year(year:str):
     try:
-        res = shared_goals_in_groups_by_year()
+        res = shared_goals_in_groups_by_year(year)
         return jsonify({
             "res": res
         }),200
     except Exception as e:
         return jsonify({"message":str(e)}),500
 
-@relation_blueprint.route('/shared_attack_type_in_groups_by_location/')
+@relation_blueprint.route('/shared_attack_type_in_groups_by_location/<string:country>')
 def get_shared_attack_type_in_groups_by_location(country:str):
     try:
         if not bool(country):
