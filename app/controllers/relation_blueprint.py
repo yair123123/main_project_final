@@ -40,6 +40,7 @@ def unique_groups_by_location(country: str):
             "res": res
         }), 200
     except Exception as e:
+        print(e)
         return jsonify({"message": str(e)}), 500
 
 

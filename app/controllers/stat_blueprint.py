@@ -28,6 +28,7 @@ def average_casualties(top:str):
             "res": res
         }),200
     except Exception as e:
+        print(e)
         return jsonify({"message":str(e)}),500
 
 @stat_blueprint.route('/top_5_most_num_spread/')
