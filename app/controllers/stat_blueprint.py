@@ -10,10 +10,10 @@ def index():
         "message": "Please enter stat for result!"
     })
 
-@stat_blueprint.route('/most_deadly/<int:top>')
-def get_most_deadly(top:int):
+@stat_blueprint.route('/most_deadly/<top>')
+def get_most_deadly(top:str):
     try:
-        res = most_deadly(top)
+        res = most_deadly(bool(top))
         return jsonify({
             "res": res
         }),200
@@ -50,10 +50,12 @@ def get_most_group_active_by_region():
     except Exception as e:
         return jsonify({"message":str(e)}),500
 
-@stat_blueprint.route('/history_events_by_year/<int:year>')
+@stat_blueprint.route('/history_events_by_year/<int:year>',methods=['GET'])
 def get_history_events_by_year(year:int):
     try:
         res = history_events_by_year(year)
+        res = [(float(l["location"]["latitude"]),float(l["location"]["longitude"])) for l in res]
+        print(res)
         return jsonify({
             "res": res
         }),200

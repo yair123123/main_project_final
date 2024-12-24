@@ -1,3 +1,5 @@
+import pandas as pd
+from pandas.core.interchange.dataframe_protocol import DataFrame
 from returns.maybe import Maybe
 
 from app.dbs.mongodb.repository import get_point_by_region, get_point_by_country
@@ -44,7 +46,7 @@ def groups_with_common_goal_by_region():
         for x in res]
 
 
-def both_groups_in_event_by_region():
+def unique_groups_by_region():
     with driver.session() as session:
         query = """
         MATCH (g:Group) <- [:PERPETRATED_BY] - (e:Event) - [:OCCURRED_IN] - (c:City) - [:IN] - (o:Country) - [:IN] -  (r:Region)
@@ -58,7 +60,7 @@ def both_groups_in_event_by_region():
         for x in res]
 
 
-def both_groups_in_event_by_country():
+def unique_groups_by_country():
     with driver.session() as session:
         query = """
         MATCH (g:Group) <- [:PERPETRATED_BY] - (e:Event) - [:OCCURRED_IN] - (c:City) - [:IN] - (o:Country) - [:IN] -  (r:Region)
@@ -71,6 +73,7 @@ def both_groups_in_event_by_country():
          "count": x.get("group_count", 0)}
         for x in res]
 
+
 def shared_goals_in_groups_by_year(year):
     with driver.session() as session:
         query = """
@@ -78,7 +81,8 @@ def shared_goals_in_groups_by_year(year):
         match (g1:Group) - [:PERPETRATED_BY] - (e)
         return g.type as target_type, collect(DISTINCT g1.name) as groups, count(DISTINCT g1) as groups_count
         """
-        return Maybe.from_optional(session.run(query,parameters={"year":year}).data()).value_or([])
+        return Maybe.from_optional(session.run(query, parameters={"year": int(year)}).data()).value_or([])
+
 
 def shared_attack_type_in_groups_by_region():
     with driver.session() as session:
@@ -87,8 +91,9 @@ def shared_attack_type_in_groups_by_region():
         MATCH (event) - [:USING] -> (attack_type:AttackedType)
         return region.name as region,attack_type.type as type,COUNT(Distinct group.name) as count
         """
-        res =  Maybe.from_optional(session.run(query).data()).value_or([])
-        print(res)
+        res = Maybe.from_optional(session.run(query).data()).value_or([])
+    return res
+
 
 def shared_attack_type_in_groups_by_country():
     with driver.session() as session:
@@ -97,6 +102,12 @@ def shared_attack_type_in_groups_by_country():
         MATCH (event) - [:USING] -> (attack_type:AttackedType)
         return country.name as region,attack_type.type as type,COUNT(Distinct group.name) as count
         """
-        res =  Maybe.from_optional(session.run(query).data()).value_or([])
-        print(res)
+        res = Maybe.from_optional(session.run(query).data()).value_or([])
+        df = pd.DataFrame(res)
+        df_max: DataFrame = df.loc[df.groupby('region')['count'].idxmax()]
 
+        res = [
+            {**get_point_by_country(x["region"]), "type": x["type"],
+             "count": x["count"]}
+            for _,x in df_max.iterrows()]
+    return res

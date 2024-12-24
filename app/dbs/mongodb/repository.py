@@ -8,7 +8,7 @@ from app.settings.config_dbs import events_collection
 def get_point_by_country(country:str):
     pipeline = [
         {
-            "$match": {"location.country": country,"location.longitude": {"$ne":None},"location.latitude": {"$ne":None}},
+            "$match": {"location.country": country,"location.longitude": {"$nin":[None,float('nan')]},"location.latitude": {"$nin":[None,float('nan')]}},
 
         },
         {
@@ -98,6 +98,7 @@ def average_casualties_by_area(top_5=None):
                 "$cond": [
                     {"$eq": ["$result.num_spread", float('nan')]}, 0, "$result.num_spread"
                 ]
+
             },
             "result.num_killed": {
                 "$cond": [
@@ -106,6 +107,8 @@ def average_casualties_by_area(top_5=None):
             }
         }},
         {"$match": {
+            "location.latitude": {"$nin": [None,float('nan')]},
+            "location.longitude": {"$nin": [None,float('nan')]},
             "location.region": {"$nin": [None, 'nan']},
             "result.num_spread": {"$ne": None},
             "result.num_killed": {"$ne": None}
@@ -113,6 +116,8 @@ def average_casualties_by_area(top_5=None):
         {"$project": {
             "_id": 0,
             "location.region": 1,
+            "location.latitude": 1,
+            "location.longitude": 1,
             "total_casualties_and_wounded": {
                 "$add": [
                     {"$multiply": [{"$ifNull": ["$result.num_spread", 0]}, 1]},
@@ -125,6 +130,8 @@ def average_casualties_by_area(top_5=None):
                 "_id": {
                     "region": "$location.region"
                 },
+                "latitude": {"$first": "$location.latitude"},
+                "longitude": {"$first": "$location.longitude"},
                 "average_casualties": {"$avg": "$total_casualties_and_wounded"}
             }
         },
@@ -205,6 +212,8 @@ def most_group_active_by_region():
         {"$match": {
             "groups": {"$ne": None},
             "location.region": {"$nin": [None, "nan"]},
+            "location.latitude": {"$nin": [None, "nan",float('nan')]},
+            "location.longitude": {"$nin": [None, "nan",float('nan')]},
             "result.num_spread": {"$gte": 0},
             "result.num_killed": {"$gte": 0}
         }},
@@ -217,14 +226,18 @@ def most_group_active_by_region():
                     {"$multiply": ["$result.num_spread", 1]},
                     {"$multiply": ["$result.num_killed", 2]}
                 ]
-            }
+            },
+            "location.latitude": 1,
+            "location.longitude": 1
         }},
         {"$group": {
             "_id": {
                 "region": "$location.region",
                 "group": "$groups"
             },
-            "total_casualties": {"$sum": "$total_casualties_and_wounded"}
+            "total_casualties": {"$sum": "$total_casualties_and_wounded"},
+            "latitude": {"$first": "$location.latitude"},
+            "longitude": {"$first": "$location.longitude"}
         }},
         {"$group": {
             "_id": "$_id.region",
@@ -233,13 +246,20 @@ def most_group_active_by_region():
                     "group": "$_id.group",
                     "total_casualties": "$total_casualties"
                 }
-            }
+            },
+            "latitude": {"$first": "$latitude"},
+            "longitude": {"$first": "$longitude"}
         }},
         {"$project": {
-            "top_groups": {"$slice": [{"$sortArray": {"input": "$top_groups", "sortBy": {"total_casualties": -1}}}, 5]}
+            "top_groups": {
+                "$slice": [{"$sortArray": {"input": "$top_groups", "sortBy": {"total_casualties": -1}}}, 5]
+            },
+            "latitude": 1,
+            "longitude": 1
         }},
         {"$sort": {"_id": 1}}
     ]
+
     result = events_collection.aggregate(pipeline)
     return list(result)
 
@@ -248,10 +268,11 @@ def history_events_by_year(year):
     pipeline = [
         {
             "$match": {
-                "location.latitude": {"$nin": [None, "nan"]},
-                "location.longitude": {"$nin": [None, "nan"]},
+                "location.latitude": {"$nin": [None, "nan", "NaN", float('nan')]},
+                "location.longitude": {"$nin": [None, "nan", "NaN", float('nan')]},
                 "date.year": {"$gte": year}
             }
+
         },
         {
             "$project": {
@@ -264,3 +285,21 @@ def history_events_by_year(year):
 
     result = events_collection.aggregate(pipeline)
     return list(result)
+
+
+def get_events_by_eventid(event_id):
+    pipeline = [
+        {
+            "$match": {
+                'eventid': event_id,
+                "location.latitude": {"$nin": [None, "nan", float('nan')]},
+                "location.longitude": {"$nin": [None, "nan", float('nan')]}
+            }
+        }
+    ]
+
+    result = events_collection.aggregate(pipeline)
+    try:
+        return next(result)
+    except StopIteration:
+        return None
