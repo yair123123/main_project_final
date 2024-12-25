@@ -1,5 +1,5 @@
 import pandas as pd
-from pandas.core.interchange.dataframe_protocol import DataFrame
+from pandas import DataFrame
 from returns.maybe import Maybe
 
 from app.dbs.mongodb.repository import get_point_by_region, get_point_by_country
@@ -69,7 +69,7 @@ def unique_groups_by_country():
         res = Maybe.from_optional(session.run(query).data()).value_or([])
 
     return [
-        {"location": get_point_by_country(x.get("region")), "groups": x.get("groups", []),
+        {"location":get_point_by_country(x.get("region")), "groups": x.get("groups", []),
          "count": x.get("group_count", 0)}
         for x in res]
 
@@ -92,7 +92,12 @@ def shared_attack_type_in_groups_by_region():
         return region.name as region,attack_type.type as type,COUNT(Distinct group.name) as count
         """
         res = Maybe.from_optional(session.run(query).data()).value_or([])
-    return res
+        df = pd.DataFrame(res)
+        df_max: DataFrame = df.loc[df.groupby('region')['count'].idxmax()]
+    return   [
+            {"location":get_point_by_region(x["region"]), "type": x["type"],
+             "count": x["count"]}
+            for _,x in df_max.iterrows()]
 
 
 def shared_attack_type_in_groups_by_country():
@@ -107,7 +112,7 @@ def shared_attack_type_in_groups_by_country():
         df_max: DataFrame = df.loc[df.groupby('region')['count'].idxmax()]
 
         res = [
-            {**get_point_by_country(x["region"]), "type": x["type"],
+            {"location":get_point_by_country(x["region"]), "type": x["type"],
              "count": x["count"]}
             for _,x in df_max.iterrows()]
     return res

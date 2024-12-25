@@ -13,7 +13,7 @@ def index():
 @stat_blueprint.route('/most_deadly/<top>')
 def get_most_deadly(top:str):
     try:
-        res = most_deadly(bool(top))
+        res = most_deadly(top == 'True')
         return jsonify({
             "res": res
         }),200
@@ -23,7 +23,7 @@ def get_most_deadly(top:str):
 @stat_blueprint.route('/average_casualties_by_area/<string:top>')
 def average_casualties(top:str):
     try:
-        res = average_casualties_by_area(bool(top))
+        res = average_casualties_by_area(top == 'True')
         return jsonify({
             "res": res
         }),200

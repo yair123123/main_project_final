@@ -17,7 +17,7 @@ def index():
 @relation_blueprint.route('/groups_with_common_goal_by_location/<string:country>')
 def get_groups_with_common_goal_by_location(country: str):
     try:
-        if not bool(country):
+        if country == 'False':
             res = groups_with_common_goal_by_region()
         else:
             res = groups_with_common_goal_by_country()
@@ -32,7 +32,7 @@ def get_groups_with_common_goal_by_location(country: str):
 @relation_blueprint.route('/unique_groups_by_location/<string:country>')
 def unique_groups_by_location(country: str):
     try:
-        if not bool(country):
+        if country == 'False':
             res = unique_groups_by_region()
         else:
             res = unique_groups_by_country()
@@ -58,7 +58,7 @@ def get_shared_goals_in_groups_by_year(year: str):
 @relation_blueprint.route('/shared_attack_type_in_groups_by_location/<string:country>')
 def get_shared_attack_type_in_groups_by_location(country: str):
     try:
-        if not bool(country):
+        if country == 'False':
             res = shared_attack_type_in_groups_by_region()
         else:
             res = shared_attack_type_in_groups_by_country()

@@ -9,6 +9,6 @@ app = Flask(__name__)
 CORS(app)
 app.register_blueprint(stat_blueprint, url_prefix='/api/stat')
 app.register_blueprint(relation_blueprint,url_prefix="/api/relation")
-app.register_blueprint(elastic_blueprint, url_prefix="/api/elastic")
+app.register_blueprint(elastic_blueprint, url_prefix="/api/search")
 if __name__ == '__main__':
     app.run()

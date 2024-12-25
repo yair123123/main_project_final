@@ -23,7 +23,7 @@ def get_point_by_country(country:str):
         }
     ]
     result = events_collection.aggregate(pipeline).next()
-    return result
+    return result.get("location",{})
 def get_point_by_region(region:str):
     pipeline = [
         {
@@ -56,7 +56,9 @@ def most_deadly(top_5=None):
     pipeline = [
         {
             "$match": {
-                "attack.attack_type": {"$ne": None}
+                "attack.attack_type": {"$ne": None},
+                "result.num_spread": {"$nin":[float('nan')]},
+                "result.num_killed":{"$nin":[float('nan')]}
             }
         },
         {
