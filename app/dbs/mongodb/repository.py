@@ -297,6 +297,13 @@ def get_events_by_eventid(event_id):
                 "location.latitude": {"$nin": [None, "nan", float('nan')]},
                 "location.longitude": {"$nin": [None, "nan", float('nan')]}
             }
+
+
+        },
+        {
+            "$project": {
+                "_id": 0
+            }
         }
     ]
 

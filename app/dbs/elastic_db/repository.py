@@ -16,7 +16,9 @@ def insert_many_descriptions(description: List[Dict[str, str]]) -> None:
 
 def search(text):
     query = {
+        "size":1000,
         "query": {
+
             "match": {
                 "summary": text
             }
